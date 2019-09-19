@@ -5,13 +5,13 @@ pipeline {
 	   steps {
                 echo 'compiling..'
 		git url: 'https://github.com/lerndevops/DevOpsClassCodes'
-		sh, script: 'mvn compile'
+		sh script: 'mvn compile'
            }
         }
         stage('codereview-pmd') {
 	   steps {
                 echo 'codereview..'
-		sh, script: 'mvn -P metrics pmd:pmd'
+		sh script: 'mvn -P metrics pmd:pmd'
            }
 	   post {
                success {
@@ -22,7 +22,7 @@ pipeline {
         stage('unit-test') {
 	   steps {
                 echo 'codereview..'
-		sh, script: 'mvn test'
+		sh script: 'mvn test'
            }
 	   post {
                success {
@@ -33,7 +33,7 @@ pipeline {
         stage('metric-check') {
 	   steps {
                 echo 'unit test..'
-		sh, script: 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
+		sh script: 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
            }
 	   post {
                success {
@@ -44,7 +44,7 @@ pipeline {
         stage('package') {
 	   steps {
                 echo 'metric-check..'
-		sh, script: 'mvn package'	
+		sh script: 'mvn package'	
            }		
         }
     }
